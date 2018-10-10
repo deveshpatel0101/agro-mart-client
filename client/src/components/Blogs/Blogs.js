@@ -1,7 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import './Blogs.css';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Paper, Table, TableHead, TableRow, TableCell, TableBody, Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 
 import BlogListItem from '../BlogListItem/BlogListItem';
 import getBlogs from '../../redux/selectors/getBlogs';
@@ -52,42 +54,39 @@ class Blogs extends React.Component {
           {/* Only to show table if there is atleast one blog in list */}
           {this.props.blogs.length > 0 ?
             (
-              <Fragment>
+              <div className='items-table'>
                 <Table>
                   <TableHead>
                     <TableRow>
                       <TableCell>Title</TableCell>
-                      <TableCell>
+                      <TableCell onClick={this.handleCreatedAt}>
                         {/*button for click event to sort by creation date */}
-                        <Button size="small" onClick={this.handleCreatedAt}>
-                          Created At
+                        Created At
                             <span className='date-icons'>
-                            {this.state.sortByCreatedAt ?
-                              (
-                                <i className="fal fa-long-arrow-down"></i>
-                              ) :
-                              (
-                                <i className="fal fa-long-arrow-up"></i>
-                              )
-                            }
-                          </span>
-                        </Button>
+                          {this.state.sortByCreatedAt ?
+                            (
+                              <i className="fal fa-long-arrow-down"></i>
+                            ) :
+                            (
+                              <i className="fal fa-long-arrow-up"></i>
+                            )
+                          }
+                        </span>
+
                       </TableCell>
-                      <TableCell>
+                      <TableCell onClick={this.handleModifiedAt}>
                         {/*button for click event to sort by last modified date */}
-                        <Button size="small" onClick={this.handleModifiedAt}>
-                          Last Modified
+                        Last Modified
                             <span className='date-icons'>
-                            {this.state.sortByModifiedAt ?
-                              (
-                                <i className="fal fa-long-arrow-down"></i>
-                              ) :
-                              (
-                                <i className="fal fa-long-arrow-up"></i>
-                              )
-                            }
-                          </span>
-                        </Button>
+                          {this.state.sortByModifiedAt ?
+                            (
+                              <i className="fal fa-long-arrow-down"></i>
+                            ) :
+                            (
+                              <i className="fal fa-long-arrow-up"></i>
+                            )
+                          }
+                        </span>
                       </TableCell>
                       <TableCell>
                         Shared
@@ -102,9 +101,17 @@ class Blogs extends React.Component {
                     {this.props.blogs.map(blog => <BlogListItem key={blog.id} blog={blog} />)}
                   </TableBody>
                 </Table>
-              </Fragment>
+              </div>
             )
             : null}
+
+          <div className='add-item'>
+            <Link to='/create'>
+              <Button variant="fab" color="primary" aria-label="Add" >
+                <AddIcon />
+              </Button>
+            </Link>
+          </div>
 
         </Paper>
       </div>

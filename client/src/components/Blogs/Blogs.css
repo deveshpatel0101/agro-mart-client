@@ -20,3 +20,26 @@ tbody tr td:nth-child(1):hover {
   background-color: #ebebeb;
   transition: 0.3s;
 }
+
+.items-table {
+  overflow-x:auto;
+}
+
+/* letter-spacing: 0.9px; */
+.items-table th  {
+  padding: 5px 35px;
+  width: 100%;
+  color: black;
+  letter-spacing: 0.9px;
+}
+
+.items-table td {
+  padding: 5px;
+  width: 100%;
+}
+
+.add-item {
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+}

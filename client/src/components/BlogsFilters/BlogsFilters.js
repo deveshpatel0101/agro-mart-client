@@ -1,8 +1,7 @@
 import React from 'react';
 import './BlogsFilters.css';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
-import { TextField, Button } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 
 import { setTextFilter, setStartDate, setEndDate } from '../../redux/actions/filters';
@@ -82,11 +81,6 @@ class BlogsFilter extends React.Component {
             </div>
           </form>
 
-          <div className='add-blog'>
-            <Link to='/create' className='create-post'>
-              <Button color='inherit' size="small">Add Vegetable</Button>
-            </Link>
-          </div>
         </span>
 
       </div>

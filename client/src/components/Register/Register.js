@@ -162,20 +162,24 @@ class Register extends React.Component {
               </div>
 
               <div>
-                <Radio
-                  checked={this.state.typePerson === 'farmer'}
-                  onChange={this.handleTypeChange}
-                  value="farmer"
-                  name="radio-button-demo"
-                  aria-label="A"
-                /> Farmer
-                <Radio
-                  checked={this.state.typePerson === 'customer'}
-                  onChange={this.handleTypeChange}
-                  value="customer"
-                  name="radio-button-demo"
-                  aria-label="A"
-                /> Customer
+                <div>
+                  <Radio
+                    checked={this.state.typePerson === 'farmer'}
+                    onChange={this.handleTypeChange}
+                    value="farmer"
+                    name="radio-button-demo"
+                    aria-label="A"
+                  /> Farmer
+                </div>
+                <div>
+                  <Radio
+                    checked={this.state.typePerson === 'customer'}
+                    onChange={this.handleTypeChange}
+                    value="customer"
+                    name="radio-button-demo"
+                    aria-label="A"
+                  /> Customer
+                  </div>
               </div>
 
               <div className='register-new-user'>
