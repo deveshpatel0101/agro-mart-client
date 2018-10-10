@@ -1,0 +1,28 @@
+.register-form {
+  width: 55%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.register-form form {
+  width: 100%;
+}
+
+.register-new-user {
+  margin-top: 15px;
+}
+
+.third-party-login a {
+  text-decoration: none;
+}
+
+.register-form-login-button {
+  margin-top: 15px;
+}
+
+.register-form-login-button a{
+  text-decoration: none;
+}

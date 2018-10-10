@@ -1,0 +1,22 @@
+.my-blog-title {
+  text-decoration: none;
+  color: white;
+  transition: 0.3s;
+}
+
+.my-blog-title:hover {
+  color: #b1b1b1;
+  transition: 0.3s;
+}
+
+.login-button {
+  margin-left: auto;
+  text-decoration: none;
+  color: white;
+}
+
+.logout-button {
+  margin-left: auto;
+  text-decoration: none;
+  color: white;
+}

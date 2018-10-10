@@ -1,0 +1,15 @@
+.shared-blog {
+  margin-top: 40px;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.shared-description {
+  margin-top: 30px;
+  letter-spacing: 0.8px;
+}
+
+.shared-description aside {
+  line-height: 1.9;
+}

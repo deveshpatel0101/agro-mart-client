@@ -1,0 +1,22 @@
+.blogs-list {
+  margin-top: 20px;
+}
+
+.date-icons {
+  padding-left: 5px;
+  color: black;
+}
+
+.date-icons i {
+  color: black;
+}
+
+tbody tr td:nth-child(1) {
+  transition: 0.3s;
+}
+
+tbody tr td:nth-child(1):hover {
+  cursor: pointer;
+  background-color: #ebebeb;
+  transition: 0.3s;
+}
