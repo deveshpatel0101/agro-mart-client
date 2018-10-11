@@ -1,5 +1,5 @@
 {
-  "short_name": "Agro Market",
+  "short_name": "AgroMarket",
   "name": "Agriculture Market",
   "description": "Agriculture Market - An helpful app for both farmers and consumers.",
   "icons": [
@@ -39,7 +39,8 @@
       "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "./",
+  "scope": ".",
   "display": "standalone",
   "theme_color": "#3f51b5",
   "background_color": "#ffffff"
