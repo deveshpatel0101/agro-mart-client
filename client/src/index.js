@@ -7,6 +7,10 @@ import configureStore from './redux/store/configureStore';
 
 const store = configureStore();
 
+if('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
+
 const jsx = (
   <Provider store={store}>
     <App />
