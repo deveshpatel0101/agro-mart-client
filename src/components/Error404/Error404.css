@@ -1,0 +1,17 @@
+.main-error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+}
+
+.error-container {
+    text-align: center;
+}
+
+.error-container p span {
+    font-size: 40px;
+    padding-right: 10px;
+    text-shadow: 0 15px 1px rgba(0, 0, 0, 0.3);
+}

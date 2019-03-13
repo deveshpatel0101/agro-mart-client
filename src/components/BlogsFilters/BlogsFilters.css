@@ -1,0 +1,70 @@
+.add-blog {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.create-post{
+  text-decoration: none;
+  color: unset;
+}
+
+.date-form {
+  display: inline;
+}
+
+.date-form div {
+  display: inline-block;
+}
+
+.form-filter-container .search-field {
+  margin-top: 9px;
+}
+
+.start-date, .end-date {
+  margin-left: 15px;
+}
+
+.form-filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.form-filter-child {
+  align-self: center;
+}
+
+@media screen and (max-width: 400px) {
+  .form-filter-container {
+    flex-direction: column;
+    flex: 1;
+  }
+}
+
+@media screen and (max-width: 756px) {
+  .add-blog {
+    margin-top: 10px;
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width: 655px) {
+  .date-form div.end-date {
+    display: block;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 445px) {
+  .date-form div.start-date {
+    display: block;
+    margin-top: 10px;
+    margin-left: 0;
+  }
+  .search-field {
+    width: 88%;
+  }
+}

@@ -1,0 +1,34 @@
+.login-form {
+  width: 55%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-form form {
+  width: 100%;
+}
+
+.form-login-button {
+  margin-top: 30px;
+}
+
+.third-party-login, .new-user {
+  margin-top: 15px;
+}
+
+.new-user a {
+  text-decoration: none;
+}
+
+.third-party-login img {
+  width: 11%;
+  padding: 0 10px 0 0;
+}
+
+.snack-bar {
+  background-color: green;
+  width: 500px;
+}
