@@ -32,10 +32,6 @@
   margin-top: 10px;
 }
 
-.form-filter-child {
-  align-self: center;
-}
-
 @media screen and (max-width: 400px) {
   .form-filter-container {
     flex-direction: column;

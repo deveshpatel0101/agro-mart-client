@@ -3,13 +3,3 @@
   margin-left: auto;
   margin-right: auto;
 }
-
-.top-button {
-  position: fixed;
-  bottom: 5%;
-  right: 5%;
-}
-
-.top-button svg {
-  transform: rotate(180deg);
-}

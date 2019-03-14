@@ -143,7 +143,7 @@ class Create extends React.Component {
                 <div className='update-blog'>
                   {/* disable the button depending upon the values of title, description and modified */}
                   <Button variant="contained" type='submit' size="small" disabled={!(this.state.title !== '' && this.state.description !== '' && this.state.modified)}>
-                    {this.state.id ? 'Update Blog' : 'Add Blog'}
+                    {this.state.id ? 'Update Item' : 'Add Item'}
                   </Button>
                 </div>
               </form>

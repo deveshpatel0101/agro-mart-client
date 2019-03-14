@@ -78,11 +78,6 @@ class BlogsFilter extends React.Component {
             />
           </div>
         </div>
-        <div className='add-blog form-filter-child'>
-          <Link to='/create' className='create-post'>
-            <Button color='inherit' size="small">Add Post</Button>
-          </Link>
-        </div>
       </div>
     );
   }

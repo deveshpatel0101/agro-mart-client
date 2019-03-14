@@ -23,8 +23,8 @@ class Header extends React.Component {
           <AppBar position='static'>
             <Toolbar>
               <Typography variant='title' color='inherit'>
-                <Link to="/dashboard" className='my-blog-title'>
-                  My Blog
+                <Link to="/" className='my-blog-title'>
+                  Agro Mart
                 </Link>
               </Typography>
               {this.props.auth.loggedIn ?

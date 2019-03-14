@@ -2,7 +2,7 @@ import React from 'react';
 import './Register.css';
 import validator from 'validator';
 import { Redirect, Link } from 'react-router-dom';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Radio } from '@material-ui/core';
 import GoogleLogin from 'react-google-login';
 import { connect } from 'react-redux';
 
@@ -32,7 +32,8 @@ class Register extends React.Component {
       errorEmailText: 'Email should be valid',
       errorPasswordText: 'Password should be 6 characters long and should include atleast one uppercase letter or numeric character.',
       errorConfirmPasswordText: 'Both passwords should match.',
-      redirect: false
+      redirect: false,
+      typePerson: 'farmer'
     }
   }
 
@@ -44,10 +45,20 @@ class Register extends React.Component {
     const temp = e.target.value;
     this.setState(() => ({ email: temp, errorEmail: false }));
   }
+
+  handleTypeChange = (e) => {
+    if (e.target.value === 'customer') {
+      this.setState(() => ({ typePerson: 'customer' }));
+    } else {
+      this.setState(() => ({ typePerson: 'farmer' }));
+    }
+  }
+
   handlePasswordChange = (e) => {
     const temp = e.target.value;
     this.setState(() => ({ password: temp, errorPassword: false }));
   }
+
   handleConfirmPasswordChange = (e) => {
     const temp = e.target.value;
     this.setState(() => ({ confirmPassword: temp, errorConfirmPassword: false }));
@@ -188,6 +199,27 @@ class Register extends React.Component {
                   helperText={this.state.errorConfirmPassword ? this.state.errorConfirmPasswordText : false}
                   fullWidth
                 />
+              </div>
+
+              <div>
+                <div>
+                  <Radio
+                    checked={this.state.typePerson === 'farmer'}
+                    onChange={this.handleTypeChange}
+                    value="farmer"
+                    name="radio-button-demo"
+                    aria-label="A"
+                  /> Farmer
+                </div>
+                <div>
+                  <Radio
+                    checked={this.state.typePerson === 'customer'}
+                    onChange={this.handleTypeChange}
+                    value="customer"
+                    name="radio-button-demo"
+                    aria-label="A"
+                  /> Customer
+                </div>
               </div>
 
               <div className='register-new-user'>
