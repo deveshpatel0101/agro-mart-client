@@ -1,5 +1,5 @@
 export const updateBlogs = (blogs) => {
-    return fetch(`https://devesh-blog.herokuapp.com/user/blogs${localStorage.getItem('loginToken') === 'undefined' || localStorage.getItem('loginToken') === 'null' ? '': '?token='+localStorage.getItem('loginToken')}`, {
+    return fetch(`https://agro-mart.herokuapp.com/user/blogs${localStorage.getItem('loginToken') === 'undefined' || localStorage.getItem('loginToken') === 'null' ? '': '?token='+localStorage.getItem('loginToken')}`, {
         method: 'post',
         headers: {
             "Content-Type": "application/json"

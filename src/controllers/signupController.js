@@ -1,5 +1,5 @@
 export const postSignupData = (formData) => {
-    return fetch('https://devesh-blog.herokuapp.com/user/register', {
+    return fetch('https://agro-mart.herokuapp.com/user/register', {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"

@@ -39,6 +39,7 @@ class BlogListItem extends React.Component {
   }
 
   handleLinkClick = (e) => {
+    e.target.select();
     document.execCommand('copy');
     this.props.dispatch(successMessage('Link copied to clipboard.', 'link copied to clipboard.'))
     setTimeout(() => {

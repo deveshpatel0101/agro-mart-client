@@ -2,7 +2,7 @@ import React from 'react';
 import './Register.css';
 import validator from 'validator';
 import { Redirect, Link } from 'react-router-dom';
-import { TextField, Button, Radio } from '@material-ui/core';
+import { TextField, Button, Radio, Typography } from '@material-ui/core';
 import GoogleLogin from 'react-google-login';
 import { connect } from 'react-redux';
 
@@ -33,7 +33,10 @@ class Register extends React.Component {
       errorPasswordText: 'Password should be 6 characters long and should include atleast one uppercase letter or numeric character.',
       errorConfirmPasswordText: 'Both passwords should match.',
       redirect: false,
-      typePerson: 'farmer'
+      typePerson: 'farmer',
+      position: undefined,
+      errorPosition: false,
+      errorPositionText: 'Please enable location'
     }
   }
 
@@ -64,12 +67,25 @@ class Register extends React.Component {
     this.setState(() => ({ confirmPassword: temp, errorConfirmPassword: false }));
   }
 
+  handleGeolocationClick = (e) => {
+    let that = this;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        that.setState({ position: { latitude: position.coords.latitude, longitude: position.coords.longitude } })
+      });
+    } else {
+
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     const name = e.target.elements.name.value;
     const email = e.target.elements.email.value;
     const password = e.target.elements.pass0.value;
     const confirmPassword = e.target.elements.pass1.value;
+    const personType = this.state.typePerson;
+    const position = this.state.position;
     if (name.length < 3) {
       this.setState(() => ({ errorName: true }));
     } else if (!validator.isEmail(email)) {
@@ -79,8 +95,7 @@ class Register extends React.Component {
     } else if (password !== confirmPassword) {
       this.setState(() => ({ errorConfirmPassword: true }));
     } else {
-      console.log(email)
-      postSignupData({ username: name, email, password, confirmPassword }).then(res => {
+      postSignupData({ username: name, email, password, confirmPassword, userType: personType, position }).then(res => {
         if (res.errorName) {
           this.setState(() => ({ errorName: true, errorNameText: res.errorMessage }));
         } else if (res.errorEmail) {
@@ -89,11 +104,12 @@ class Register extends React.Component {
           this.setState(() => ({ errorPassword: true, errorPasswordText: res.errorMessage }));
         } else if (res.errorPassword) {
           this.setState(() => ({ errorPassword: true, errorConfirmPasswordText: res.errorMessage }));
+        } else if (res.errorPosition) {
+          this.setState({ errorPosition: true });
         } else if (res.success) {
           this.props.dispatch(successMessage('User created! You can now login.', res.successMessage));
           this.setState(() => ({ redirect: true }));
         } else {
-          console.log('happened', res.errorMessage);
           this.props.dispatch(errorMessage('Oops! Something went wrong. This might be an API error. Report the error here or try refreshing the page.', res.errorMessage))
           setTimeout(() => {
             this.props.dispatch(clearMessages())
@@ -104,14 +120,22 @@ class Register extends React.Component {
   }
 
   responseGoogle = (response) => {
-    if (!response.error) {
+    if (!this.state.position) {
+      this.setState({ errorPosition: true });
+      this.props.dispatch(errorMessage('We need to know your location in order to show your items to nearby cosumers.'));
+      setTimeout(() => {
+        this.props.dispatch(clearMessages())
+      }, 8000);
+    } else if (!response.error) {
       let user = {
         username: response.profileObj.name,
         email: response.profileObj.email,
         accessToken: response.accessToken,
         refreshToken: response.refreshToken,
         profileImage: response.profileObj.imageUrl,
-        googleId: response.googleId
+        googleId: response.googleId,
+        userType: this.state.typePerson,
+        position: this.state.position
       }
       googleAuth(user).then(res => {
         if (!response.error) {
@@ -201,6 +225,12 @@ class Register extends React.Component {
                 />
               </div>
 
+              <div className='mandatory-fields-alert'>
+                <Typography variant="body2" gutterBottom>
+                  Below two fields are mandatory even if you register with google.
+                </Typography>
+              </div>
+
               <div>
                 <div>
                   <Radio
@@ -220,6 +250,21 @@ class Register extends React.Component {
                     aria-label="A"
                   /> Customer
                 </div>
+              </div>
+
+              <div className='enable-geolocation'>
+                <Button size="small" onClick={this.handleGeolocationClick}>
+                  <i className="fal fa-location"></i>Location
+                </Button>
+                &nbsp;&nbsp;
+                <TextField
+                  placeholder={'Geo-Location'}
+                  className='geolocation-input'
+                  error={this.state.errorPosition}
+                  helperText={this.state.errorPosition ? this.state.errorPositionText : false}
+                  value={this.state.position && `${this.state.position.latitude}, ${this.state.position.longitude}`}
+                  margin="normal"
+                />
               </div>
 
               <div className='register-new-user'>
