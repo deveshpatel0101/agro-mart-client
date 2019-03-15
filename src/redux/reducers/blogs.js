@@ -10,8 +10,10 @@ export default (state = blogsReducerDefaultState, action) => {
             return state.map(blog => blog.id === action.id ? {...blog, ...action.updates } : blog);
         case 'ADD_BLOG_ARR':
             return action.blogs;
-        case 'SHARED_BLOG': 
-            return state.map(blog => blog.id === action.id ? {...blog, shared: !blog.shared} : blog);
+        case 'SHARED_BLOG':
+            return state.map(blog => blog.id === action.id ? {...blog, shared: !blog.shared } : blog);
+        case 'ADD_ADDRESS':
+            return state.map(blog => blog.id === action.id ? {...blog, address: action.address } : blog);
         default:
             return state;
     }

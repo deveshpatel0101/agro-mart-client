@@ -44,6 +44,7 @@ class Register extends React.Component {
     const temp = e.target.value;
     this.setState(() => ({ name: temp, errorName: false }));
   }
+
   handleEmailChange = (e) => {
     const temp = e.target.value;
     this.setState(() => ({ email: temp, errorEmail: false }));

@@ -31,3 +31,9 @@ export const sharedBlog = (id) => ({
     type: 'SHARED_BLOG',
     id
 });
+
+export const addAddress = (address, id) => ({
+    type: 'ADD_ADDRESS',
+    address,
+    id
+});

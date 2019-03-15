@@ -56,6 +56,11 @@
   text-overflow: ellipsis;
 }
 
+.blog-address {
+  font-size: 14px;
+  width: 195px;
+}
+
 .blog-datetime {
   font-size: 13px;
   color: #353535;

@@ -95,7 +95,11 @@ class BlogListItem extends React.Component {
                   {this.props.blog.shared ? <i className="fal fa-users"></i> : <i className="fal fa-user"></i>}
                   <span>{this.props.blog.title}</span>
                 </p>
-                <p className='blog-description'>Description: {this.props.blog.description}</p>
+                <p className='blog-description' title={this.props.blog.description}><b>Description</b>: {this.props.blog.description}</p>
+                {
+                  this.props.blog.address &&
+                  <p className='blog-address' title={this.props.blog.address}><b>Address</b>: {this.props.blog.address}</p>
+                }
                 <p className='blog-datetime'>
                   Created At: <span>{moment(this.props.blog.createdAt).format('Do MMM YYYY, hh:mm a')}</span>
                 </p>

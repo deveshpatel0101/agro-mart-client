@@ -13,7 +13,14 @@ class Blogs extends React.Component {
         {this.props.blogs.length > 0 ?
           (
             <div className='items-grid'>
-              {this.props.blogs.map(blog => <BlogListItem key={blog.id} blog={blog} />)}
+              {
+                this.props.blogs.map(blog => blog.blogId ?
+                  (
+                    <BlogListItem key={blog.blogId} blog={blog} />
+                  ) : (
+                    <BlogListItem key={blog.id} blog={blog} />
+                  ))
+              }
             </div>
           )
           : null}
