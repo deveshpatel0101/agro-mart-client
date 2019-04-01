@@ -8,6 +8,7 @@
 
 # production
 /build
+secret.js
 
 # misc
 .DS_Store

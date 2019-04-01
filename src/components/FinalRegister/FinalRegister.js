@@ -20,7 +20,7 @@ class FinalRegister extends React.Component {
 
   componentWillMount() {
     getBlogsFromDb().then(res => {
-      if (res.tokenStatus === 'invalid' || res.error) { // invalid token status or error in response of server
+      if (res.error) { // invalid token status or error in response of server
         this.props.dispatch(userLogOut());
         this.setState(() => ({ verifying: false }));
       } else { // valid token and user is already logged in

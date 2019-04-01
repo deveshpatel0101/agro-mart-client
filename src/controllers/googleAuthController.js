@@ -1,5 +1,5 @@
 export const googleAuth = (data) => {
-    return fetch(`https://agro-mart.herokuapp.com/user/auth/google`, {
+    return fetch(`https://agro-mart-v2.herokuapp.com/user/auth/google`, {
         method: 'post',
         headers: {
             "Content-Type": "application/json"

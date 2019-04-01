@@ -25,7 +25,7 @@ class FinalLogin extends React.Component {
     if (id) this.setState(() => ({ id }));
     // get blogs from server
     getBlogsFromDb().then(res => {
-      if (res.tokenStatus === 'invalid' || res.error) { // if error or invalid token status render login page, user is logged out
+      if (res.error) { // if error or invalid token status render login page, user is logged out
         this.props.dispatch(userLogOut());
         this.setState(() => ({ verifying: false }));
       } else { // else redirect to dashboard page, user is already logged in
