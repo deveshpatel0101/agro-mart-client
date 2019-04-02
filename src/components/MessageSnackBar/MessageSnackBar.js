@@ -13,12 +13,12 @@ class MessageSnackBar extends React.Component {
             ContentProps={{
               'aria-describedby': 'message-id',
             }}
-            message={<span id="message-id">{this.props.message}</span>}
+            message={<span id='message-id'>{this.props.message}</span>}
             className='snackbar-error-message'
           />
         </div>
       </div>
-    )
+    );
   }
 }
 

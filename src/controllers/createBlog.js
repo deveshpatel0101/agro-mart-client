@@ -1,4 +1,4 @@
-export const editBlogs = (blogs) => {
+export const createBlog = (blogs) => {
   return fetch(
     `https://agro-mart-v2.herokuapp.com/user/blogs${
       localStorage.getItem('loginToken') === 'undefined' ||
@@ -7,7 +7,7 @@ export const editBlogs = (blogs) => {
         : '?token=' + localStorage.getItem('loginToken')
     }`,
     {
-      method: 'put',
+      method: 'post',
       headers: {
         'Content-Type': 'application/json',
       },

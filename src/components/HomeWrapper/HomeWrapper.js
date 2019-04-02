@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
+import './HomeWrapper.css';
+
 import Header from '../Header/Header';
 import Home from '../Home/Home';
 
-class FinalHome extends React.Component {
+class HomeWrapper extends React.Component {
   render() {
     return (
       <Fragment>
@@ -13,4 +15,4 @@ class FinalHome extends React.Component {
   }
 }
 
-export default FinalHome;
+export default HomeWrapper;

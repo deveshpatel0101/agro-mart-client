@@ -8,13 +8,12 @@ import { userLogOut } from '../../redux/actions/auth';
 import { addBlogArr } from '../../redux/actions/blogs';
 
 class Header extends React.Component {
-
   handleLogout = () => {
     // if logout button click remove, login token from local storage
     this.props.dispatch(addBlogArr([]));
     this.props.dispatch(userLogOut());
     localStorage.removeItem('loginToken');
-  }
+  };
 
   render() {
     return (
@@ -23,31 +22,27 @@ class Header extends React.Component {
           <AppBar position='static'>
             <Toolbar>
               <Typography variant='title' color='inherit'>
-                <Link to="/" className='my-blog-title'>
+                <Link to='/' className='my-blog-title'>
                   Agro Mart
                 </Link>
               </Typography>
-              {this.props.auth.loggedIn ?
-                (
-                  window.location.pathname === '/' ?
-                    (
-                      <Link to="/user/login" className='login-button'>
-                        <Button color='inherit'>Login</Button>
-                      </Link>
-                    ) :
-                    (
-                      <a href="#" className='logout-button'>
-                        <Button onClick={this.handleLogout} color='inherit'>logout</Button>
-                      </a>
-                    )
-                )
-                :
-                (
-                  <Link to="/user/login" className='login-button'>
+              {this.props.auth.loggedIn ? (
+                window.location.pathname === '/' ? (
+                  <Link to='/user/login' className='login-button'>
                     <Button color='inherit'>Login</Button>
                   </Link>
+                ) : (
+                  <span className='logout-button'>
+                    <Button onClick={this.handleLogout} color='inherit'>
+                      logout
+                    </Button>
+                  </span>
                 )
-              }
+              ) : (
+                <Link to='/user/login' className='login-button'>
+                  <Button color='inherit'>Login</Button>
+                </Link>
+              )}
             </Toolbar>
           </AppBar>
         </div>
@@ -58,8 +53,8 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth
-  }
-}
+    auth: state.auth,
+  };
+};
 
 export default connect(mapStateToProps)(Header);

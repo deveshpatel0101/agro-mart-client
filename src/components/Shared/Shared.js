@@ -10,13 +10,13 @@ class Shared extends React.Component {
     super(props);
     this.state = {
       blog: null,
-      fetching: true
-    }
+      fetching: true,
+    };
   }
   componentWillMount() {
     const id = window.location.search.split('=')[1];
     if (id) {
-      getSharedBlog(id).then(res => {
+      getSharedBlog(id).then((res) => {
         if (res.error === 'does not exist') {
           this.setState(() => ({ error: res.error, fetching: false }));
         } else if (res.error === 'no id found in query') {
@@ -33,41 +33,35 @@ class Shared extends React.Component {
     return (
       <div>
         <Header />
-        {this.state.fetching ?
-          <LinearProgress /> :
-          (
-            <div className='shared-blog'>
-              {this.state.error === 'does not exist' ?
-                (
-                  <Typography variant="headline" gutterBottom>
-                    Blog does not exist or either it is not shared by the owner or this link is not valid.
+        {this.state.fetching ? (
+          <LinearProgress />
+        ) : (
+          <div className='shared-blog'>
+            {this.state.error === 'does not exist' ? (
+              <Typography variant='headline' gutterBottom>
+                Blog does not exist or either it is not shared by the owner or this link is not
+                valid.
+              </Typography>
+            ) : this.state.error === 'no id found in query' ? (
+              <Typography variant='headline' gutterBottom>
+                No id found in URL. Server responded with null. Please get a valid link.
+              </Typography>
+            ) : (
+              <Fragment>
+                <div className='shared-title'>
+                  <Typography variant='headline' gutterBottom>
+                    {this.state.blog.title}
                   </Typography>
-                ) :
-                (this.state.error === 'no id found in query' ?
-                  (
-                    <Typography variant="headline" gutterBottom>
-                      No id found in URL. Server responded with null. Please get a valid link.
+                </div>
+                <div className='shared-description'>
+                  <Typography variant='body2' gutterBottom>
+                    {this.state.blog.description}
                   </Typography>
-                  ) :
-                  (
-                    <Fragment>
-                      <div className='shared-title'>
-                        <Typography variant="headline" gutterBottom>
-                          {this.state.blog.title}
-                        </Typography>
-                      </div>
-                      <div className='shared-description'>
-                        <Typography variant="body2" gutterBottom>
-                          {this.state.blog.description}
-                        </Typography>
-                      </div>
-                    </Fragment>
-                  )
-                )}
-            </div>
-          )
-        }
-
+                </div>
+              </Fragment>
+            )}
+          </div>
+        )}
       </div>
     );
   }

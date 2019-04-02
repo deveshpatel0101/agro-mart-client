@@ -7,15 +7,14 @@ import configureStore from './redux/store/configureStore';
 
 const store = configureStore();
 
-if('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').then(function() {
-  });
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then(function() {});
 }
 
 const jsx = (
   <Provider store={store}>
     <App />
   </Provider>
-)
+);
 
 ReactDOM.render(jsx, document.getElementById('root'));

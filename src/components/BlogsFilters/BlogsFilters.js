@@ -7,28 +7,27 @@ import { connect } from 'react-redux';
 import { setTextFilter, setStartDate, setEndDate } from '../../redux/actions/filters';
 
 class BlogsFilter extends React.Component {
-
   handleStartDateChange = (e) => {
     const startDate = e.target.value;
-      // converting date string to timestamp
-      const startDateTimeStamp = moment(startDate ? startDate : 0).valueOf();
-      // dispatching setStartDate to filter blogs
-      this.props.dispatch(setStartDate(startDateTimeStamp ? startDateTimeStamp : 0));
-  }
+    // converting date string to timestamp
+    const startDateTimeStamp = moment(startDate ? startDate : 0).valueOf();
+    // dispatching setStartDate to filter blogs
+    this.props.dispatch(setStartDate(startDateTimeStamp ? startDateTimeStamp : 0));
+  };
 
   handleEndDateChange = (e) => {
     const endDate = e.target.value;
-      // converting date string to timestamp
-      const endDateTimeStamp = moment(endDate ? endDate : 0).valueOf();
-      // dispatching setEndDate to filter blogs
-      this.props.dispatch(setEndDate(endDateTimeStamp ? endDateTimeStamp : 0))
-  }
+    // converting date string to timestamp
+    const endDateTimeStamp = moment(endDate ? endDate : 0).valueOf();
+    // dispatching setEndDate to filter blogs
+    this.props.dispatch(setEndDate(endDateTimeStamp ? endDateTimeStamp : 0));
+  };
 
   handleTextChange = (e) => {
     const textField = e.target.value;
     // get value from text field and set it as text filter in filters state
     this.props.dispatch(setTextFilter(textField));
-  }
+  };
 
   componentWillMount() {
     console.log();
@@ -38,10 +37,10 @@ class BlogsFilter extends React.Component {
     return (
       <div className='form-filter-container'>
         <TextField
-          id="search"
-          label="Search"
-          type="search"
-          margin="normal"
+          id='search'
+          label='Search'
+          type='search'
+          margin='normal'
           value={this.props.filters.text}
           onChange={this.handleTextChange}
           className='search-field form-filter-child'
@@ -50,10 +49,14 @@ class BlogsFilter extends React.Component {
         <div className='date-form form-filter-child'>
           <div className='start-date'>
             <TextField
-              id="date"
-              label="Start Date"
-              type="date"
-              value={this.props.filters.startDate ? moment(this.props.filters.startDate).format('YYYY-MM-DD') : ''}
+              id='date'
+              label='Start Date'
+              type='date'
+              value={
+                this.props.filters.startDate
+                  ? moment(this.props.filters.startDate).format('YYYY-MM-DD')
+                  : ''
+              }
               InputLabelProps={{
                 shrink: true,
               }}
@@ -65,9 +68,9 @@ class BlogsFilter extends React.Component {
         <div className='date-form form-filter-child'>
           <div className='end-date'>
             <TextField
-              id="date"
-              label="End Date"
-              type="date"
+              id='date'
+              label='End Date'
+              type='date'
               InputLabelProps={{
                 shrink: true,
               }}
@@ -84,8 +87,8 @@ class BlogsFilter extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    filters: state.filters
-  }
-}
+    filters: state.filters,
+  };
+};
 
 export default connect(mapStateToProps)(BlogsFilter);

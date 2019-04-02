@@ -238,6 +238,7 @@ class Register extends React.Component {
               className='geolocation-input'
               error={errorPosition && true}
               helperText={errorPosition}
+              disabled={true}
               value={position && `${position.latitude}, ${position.longitude}`}
               margin='normal'
             />

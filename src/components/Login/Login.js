@@ -1,6 +1,5 @@
 import React from 'react';
 import './Login.css';
-import validator from 'validator';
 import { TextField, Button } from '@material-ui/core';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';

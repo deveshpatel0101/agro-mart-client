@@ -5,13 +5,13 @@ import authReducer from '../reducers/auth';
 import messageReducer from '../reducers/message';
 
 export default () => {
-    const store = createStore(
-        combineReducers({
-            blogs: blogsReducer,
-            filters: filtersReducer,
-            auth: authReducer,
-            message: messageReducer
-        })
-    );
-    return store;
-}
+  const store = createStore(
+    combineReducers({
+      blogs: blogsReducer,
+      filters: filtersReducer,
+      auth: authReducer,
+      message: messageReducer,
+    }),
+  );
+  return store;
+};
