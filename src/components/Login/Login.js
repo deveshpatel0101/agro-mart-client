@@ -5,7 +5,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 
-import MessageSnackBar from '../MessageSnackBar/MessageSnackBar';
 import { postLoginData } from '../../controllers/loginController';
 import { googleAuth } from '../../controllers/googleAuthController';
 import { userLogin } from '../../redux/actions/auth';
@@ -117,16 +116,6 @@ class Login extends React.Component {
     }
   };
 
-  // check if user was redirected from register page by creating new account
-  // if so then check successMessage
-  componentWillMount() {
-    if (this.props.message.successMessage) {
-      setTimeout(() => {
-        this.props.dispatch(clearMessages());
-      }, 8000);
-    }
-  }
-
   render() {
     const { email, errorEmail, password, errorPassword } = this.state;
     return this.state.redirectSignup ? (
@@ -194,18 +183,6 @@ class Login extends React.Component {
               onFailure={this.responseGoogle}
             />
           </div>
-          {this.props.message.errorMessage && (
-            <MessageSnackBar
-              show={this.props.message.errorMessage === '' ? false : true}
-              message={this.props.message.errorMessage}
-            />
-          )}
-          {this.props.message.successMessage && (
-            <MessageSnackBar
-              show={this.props.message.successMessage === '' ? false : true}
-              message={this.props.message.successMessage}
-            />
-          )}
         </form>
       </div>
     );

@@ -9,14 +9,13 @@
   transition: 0.3s;
 }
 
-.login-button {
+.header-buttons {
   margin-left: auto;
-  text-decoration: none;
-  color: white;
 }
 
-.logout-button {
-  margin-left: auto;
+.login-button,
+.logout-button,
+.search-button {
   text-decoration: none;
   color: white;
 }

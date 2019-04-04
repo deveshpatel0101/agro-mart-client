@@ -26,7 +26,7 @@ export const postSharedBlog = (sharedBlog) => {
 };
 
 export const getSharedBlog = (id) => {
-  return fetch(`/public/shared/blog?id=${id}`).then((res) => {
+  return fetch(`https://agro-mart-v2.herokuapp.com/public/shared/blog?blogId=${id}`).then((res) => {
     return res
       .json()
       .then((result) => {

@@ -5,7 +5,6 @@ import { TextField, Button, Typography } from '@material-ui/core';
 import GoogleLogin from 'react-google-login';
 import { connect } from 'react-redux';
 
-import MessageSnackBar from '../MessageSnackBar/MessageSnackBar';
 import { postSignupData } from '../../controllers/signupController';
 import secrets from '../../secret';
 import { googleAuth } from '../../controllers/googleAuthController';
@@ -86,6 +85,9 @@ class Register extends React.Component {
         this.props.dispatch(
           successMessage('User created! You can now login.', 'User created! You can now login.'),
         );
+        setTimeout(() => {
+          this.props.dispatch(clearMessages());
+        }, 8000);
         this.setState(() => ({ redirect: true }));
       } else {
         this.props.dispatch(
@@ -276,22 +278,13 @@ class Register extends React.Component {
             />
           </div>
         </form>
-
-        {this.props.message.errorMessage && (
-          <MessageSnackBar
-            show={this.props.message.errorMessage === '' ? false : true}
-            message={this.props.message.errorMessage}
-          />
-        )}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    message: state.message,
-  };
+const mapStateToProps = () => {
+  return {};
 };
 
 export default connect(mapStateToProps)(Register);

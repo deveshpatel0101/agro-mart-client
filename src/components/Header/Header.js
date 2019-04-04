@@ -26,23 +26,24 @@ class Header extends React.Component {
                   Agro Mart
                 </Link>
               </Typography>
-              {this.props.auth.loggedIn ? (
-                window.location.pathname === '/' ? (
-                  <Link to='/user/login' className='login-button'>
-                    <Button color='inherit'>Login</Button>
-                  </Link>
-                ) : (
+              <span className='header-buttons'>
+                {this.props.auth.loggedIn ? (
                   <span className='logout-button'>
                     <Button onClick={this.handleLogout} color='inherit'>
-                      logout
+                      Logout
                     </Button>
                   </span>
-                )
-              ) : (
-                <Link to='/user/login' className='login-button'>
-                  <Button color='inherit'>Login</Button>
-                </Link>
-              )}
+                ) : (
+                  <span>
+                    <Link to='/search' className='search-button'>
+                      <Button color='inherit'>Search</Button>
+                    </Link>
+                    <Link to='/user/login' className='login-button'>
+                      <Button color='inherit'>Login</Button>
+                    </Link>
+                  </span>
+                )}
+              </span>
             </Toolbar>
           </AppBar>
         </div>

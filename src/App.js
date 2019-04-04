@@ -9,6 +9,7 @@ import LoginWrapper from './components/LoginWrapper/LoginWrapper';
 import RegisterWrapper from './components/RegisterWrapper/RegisterWrapper';
 import Shared from './components/Shared/Shared';
 import Error404 from './components/Error404/Error404';
+import MessageListener from './components/MessageListener/MessageListener';
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
             {/* Redirect to /error if some error occurs fetching */}
           </Switch>
         </BrowserRouter>
+        <MessageListener />
       </div>
     );
   }

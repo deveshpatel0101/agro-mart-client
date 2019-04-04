@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { TextField, Button } from '@material-ui/core';
 
-import MessageSnackBar from '../MessageSnackBar/MessageSnackBar';
 import { errorMessage, clearMessages } from '../../redux/actions/message';
 import { addBlog, editBlog } from '../../redux/actions/blogs';
 import { userLogOut } from '../../redux/actions/auth';
@@ -183,12 +182,6 @@ class Create extends React.Component {
                 </Button>
               </div>
             </form>
-            {this.props.message.errorMessage && (
-              <MessageSnackBar
-                show={this.props.message.errorMessage === '' ? false : true}
-                message={this.props.message.errorMessage}
-              />
-            )}
           </div>
         )}
       </Fragment>
@@ -199,7 +192,6 @@ class Create extends React.Component {
 const mapStateToProps = (state) => {
   return {
     blogs: state.blogs,
-    message: state.message,
   };
 };
 

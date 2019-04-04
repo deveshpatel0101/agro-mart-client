@@ -6,7 +6,6 @@ import moment from 'moment';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import MessageSnackBar from '../MessageSnackBar/MessageSnackBar';
 import { sharedBlog, removeBlog } from '../../redux/actions/blogs';
 import { successMessage, clearMessages, errorMessage } from '../../redux/actions/message';
 import { userLogOut } from '../../redux/actions/auth';
@@ -58,7 +57,9 @@ class BlogCard extends React.Component {
     postSharedBlog(shareBlog).then((res) => {
       console.log(res);
       const { error, errorType, errorMessage: error_msg } = res;
-      if (error) {
+      if (error && errorType === 'token') {
+        this.props.dispatch(userLogOut());
+      } else if (error) {
         // if error was found in response then send alert to user
         this.props.dispatch(
           errorMessage(
@@ -69,8 +70,6 @@ class BlogCard extends React.Component {
         setTimeout(() => {
           this.props.dispatch(clearMessages());
         }, 8000);
-      } else if (error && errorType === 'token') {
-        this.props.dispatch(userLogOut());
       } else {
         this.props.dispatch(sharedBlog(this.props.blog.blogId));
         this.props.dispatch(successMessage('Successful!', 'Successfully Updated'));
@@ -182,23 +181,13 @@ class BlogCard extends React.Component {
             </div>
           </Card>
         )}
-        <div>
-          {this.props.message.successMessage && (
-            <MessageSnackBar
-              show={this.props.message.successMessage === '' ? false : true}
-              message={this.props.message.successMessage}
-            />
-          )}
-        </div>
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    message: state.message,
-  };
+const mapStateToProps = () => {
+  return {};
 };
 
 export default connect(mapStateToProps)(BlogCard);
