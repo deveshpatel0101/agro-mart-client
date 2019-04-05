@@ -10,6 +10,7 @@ import RegisterWrapper from './components/RegisterWrapper/RegisterWrapper';
 import Shared from './components/Shared/Shared';
 import Error404 from './components/Error404/Error404';
 import MessageListener from './components/MessageListener/MessageListener';
+import SearchWrapper from './components/SearchWrapper/SearchWrapper';
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
             <Route path='/create' component={CreateWrapper} />
             <Route path='/public/shared' component={Shared} />
             <Route path='/error' component={Error404} />
+            <Route path='/search' component={SearchWrapper} />
             {/* Redirect to /error if some error occurs fetching */}
           </Switch>
         </BrowserRouter>
