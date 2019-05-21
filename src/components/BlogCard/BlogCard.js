@@ -162,7 +162,7 @@ class BlogCard extends React.Component {
                       {this.props.blog.shared ? (
                         <TextField
                           id='name'
-                          value={`${window.location.origin}/public/shared?id=${this.props.blog.id}`}
+                          value={`${window.location.origin}/public/shared?id=${this.props.blog.blogId}`}
                           onClick={this.handleLinkClick}
                         />
                       ) : null}
