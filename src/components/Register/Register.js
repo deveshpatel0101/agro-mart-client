@@ -125,7 +125,7 @@ class Register extends React.Component {
         position: this.state.position,
       };
       googleAuth(user).then((res) => {
-        if (!response.error) {
+        if (!res.error) {
           localStorage.setItem('loginToken', res.jwtToken);
           this.props.dispatch(addBlogArr(res.blogs));
           this.props.dispatch(userLogin());
