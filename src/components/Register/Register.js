@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import { postSignupData } from '../../controllers/signupController';
 import secrets from '../../secret';
-import { googleAuth } from '../../controllers/googleAuthController';
+import { googleAuthRegister } from '../../controllers/googleAuthController';
 import { addBlogArr } from '../../redux/actions/blogs';
 import { userLogin } from '../../redux/actions/auth';
 import { errorMessage, clearMessages, successMessage } from '../../redux/actions/message';
@@ -119,16 +119,20 @@ class Register extends React.Component {
         username: response.profileObj.name,
         email: response.profileObj.email,
         accessToken: response.accessToken,
-        refreshToken: response.refreshToken,
-        profileImage: response.profileObj.imageUrl,
         googleId: response.googleId,
         position: this.state.position,
       };
-      googleAuth(user).then((res) => {
+      googleAuthRegister(user).then((res) => {
         if (!res.error) {
           localStorage.setItem('loginToken', res.jwtToken);
           this.props.dispatch(addBlogArr(res.blogs));
           this.props.dispatch(userLogin());
+        } else if (res.errorType === 'email') {
+          this.props.dispatch(errorMessage('User already exists!', res.errorMessage));
+          this.setState(() => ({ redirect: 'login' }));
+          setTimeout(() => {
+            this.props.dispatch(clearMessages());
+          }, 8000);
         } else {
           this.props.dispatch(
             errorMessage(
@@ -157,12 +161,12 @@ class Register extends React.Component {
       errorConfirmPassword,
       errorPosition,
     } = this.state;
-    if (this.state.redirect) {
+    if (this.state.redirect === 'login') {
+      return <Redirect to={'/user/login'} />;
+    } else if (this.state.redirect) {
       return <Redirect to={'/dashboard'} />;
     }
-    return this.state.redirect ? (
-      <Redirect to='/user/login' />
-    ) : (
+    return (
       <div className='register-form'>
         <form method='POST' onSubmit={this.handleSubmit}>
           <div className='name-field'>

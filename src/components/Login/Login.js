@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import GoogleLogin from 'react-google-login';
 
 import { postLoginData } from '../../controllers/loginController';
-import { googleAuth } from '../../controllers/googleAuthController';
+import { googleAuthLogin } from '../../controllers/googleAuthController';
 import { userLogin } from '../../redux/actions/auth';
 import { addBlogArr } from '../../redux/actions/blogs';
 import { clearMessages, errorMessage } from '../../redux/actions/message';
@@ -22,7 +22,7 @@ class Login extends React.Component {
       errorEmail: '',
       errorPassword: '',
       id: null,
-      redirectSignup: false,
+      redirect: false,
     };
   }
 
@@ -74,51 +74,38 @@ class Login extends React.Component {
   responseGoogle = (response) => {
     if (!response.error) {
       let user = {
-        username: response.profileObj.name,
-        email: response.profileObj.email,
         accessToken: response.accessToken,
-        refreshToken: response.refreshToken,
-        profileImage: response.profileObj.imageUrl,
-        googleId: response.googleId,
       };
-      googleAuth(user)
-        .then((res) => {
-          if (res.errorUserType || res.errorPosition) {
-            this.props.dispatch(
-              errorMessage(
-                'User does not exists. We need few information to create a new user.',
-                res.errorMessage,
-              ),
-            );
-            this.setState({ redirectSignup: true });
-            setTimeout(() => {
-              this.props.dispatch(clearMessages());
-            }, 8000);
-          } else if (!res.error) {
-            localStorage.setItem('loginToken', res.jwtToken);
-            this.props.dispatch(addBlogArr(res.blogs));
-            this.props.dispatch(userLogin());
-          } else {
-            this.props.dispatch(
-              errorMessage(
-                'Oops! Something went wrong. This might be an API error. Report the error here or try refreshing the page.',
-                res.errorMessage,
-              ),
-            );
-            setTimeout(() => {
-              this.props.dispatch(clearMessages());
-            }, 8000);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      googleAuthLogin(user).then((res) => {
+        console.log(res);
+        if (res.errorType === 'email') {
+          this.props.dispatch(errorMessage('User does not exists!', res.errorMessage));
+          this.setState({ redirect: 'signup' });
+          setTimeout(() => {
+            this.props.dispatch(clearMessages());
+          }, 8000);
+        } else if (!res.error) {
+          localStorage.setItem('loginToken', res.jwtToken);
+          this.props.dispatch(addBlogArr(res.blogs));
+          this.props.dispatch(userLogin());
+        } else {
+          this.props.dispatch(
+            errorMessage(
+              'Oops! Something went wrong. This might be an API error. Report the error here or try refreshing the page.',
+              res.errorMessage,
+            ),
+          );
+          setTimeout(() => {
+            this.props.dispatch(clearMessages());
+          }, 8000);
+        }
+      });
     }
   };
 
   render() {
     const { email, errorEmail, password, errorPassword } = this.state;
-    return this.state.redirectSignup ? (
+    return this.state.redirect === 'signup' ? (
       <Redirect to='/user/register' />
     ) : (
       <div className='login-form'>
