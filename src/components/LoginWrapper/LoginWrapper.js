@@ -22,18 +22,18 @@ class LoginWrapper extends React.Component {
 
   componentWillMount() {
     const id = window.location.search.split('=')[1];
-    if (id) this.setState(() => ({ id }));
+    if (id) this.setState({ id });
     // get blogs from server
     getBlogsFromDb().then((res) => {
       if (res.error) {
         // if error or invalid token status render login page, user is logged out
         this.props.dispatch(userLogOut());
-        this.setState(() => ({ verifying: false }));
+        this.setState({ verifying: false });
       } else {
         // else redirect to dashboard page, user is already logged in
         this.props.dispatch(userLogin());
         this.props.dispatch(addBlogArr(res.blogs));
-        this.setState(() => ({ verifying: false }));
+        this.setState({ verifying: false });
       }
     });
   }

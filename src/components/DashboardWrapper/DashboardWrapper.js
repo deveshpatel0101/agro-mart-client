@@ -25,16 +25,16 @@ class DashboardWrapper extends React.Component {
         if (res.error) {
           // if token invalid dispatch userlogout action
           this.props.dispatch(userLogOut());
-          this.setState(() => ({ verifying: false }));
+          this.setState({ verifying: false });
         } else {
           // else token was valid and dispatch userlogin action
           this.props.dispatch(userLogin());
           this.props.dispatch(addBlogArr(res.blogs));
-          this.setState(() => ({ verifying: false }));
+          this.setState({ verifying: false });
         }
       });
     } else {
-      this.setState(() => ({ verifying: false }));
+      this.setState({ verifying: false });
     }
   }
 

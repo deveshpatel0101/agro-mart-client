@@ -69,7 +69,7 @@ class Create extends React.Component {
         } else if (!error) {
           // if response was true i.e request was successfully satisfied
           this.props.dispatch(editBlog(this.state.blogId, { ...newBlog }));
-          this.setState(() => ({ clicked: true }));
+          this.setState({ clicked: true });
         } else if (error) {
           // if error was found in response then send alert to user
           this.renderMessage(
@@ -93,7 +93,7 @@ class Create extends React.Component {
         if (!error) {
           this.props.dispatch(addBlog({ ...newBlog, blogId }));
           // set click value to true if form is correctly updated so as to redirect user to home page
-          this.setState(() => ({ clicked: true }));
+          this.setState({ clicked: true });
         } else if (error && errorType === 'token') {
           // if tokenStatus status in response was invalid dispatch logout action
           this.props.dispatch(userLogOut());
@@ -115,13 +115,13 @@ class Create extends React.Component {
   componentWillMount() {
     // find `id` if it exist in url
     const blogId = window.location.search.split('=')[1];
-    this.setState(() => ({ blogId }));
+    this.setState({ blogId });
     if (blogId) {
       // fetching correctBlog that matches in blogs array
       let correctBlog = this.props.blogs.find((blog) => blog.blogId === blogId && blog);
       if (correctBlog) {
         // if correct blog exist set its values in state along with id
-        this.setState(() => ({ ...correctBlog, blogId }));
+        this.setState({ ...correctBlog, blogId });
       } else {
         this.renderMessage('Blog does not exists!', 'Invalid blog id found in url.');
         window.history.replaceState('new url', null, `${window.location.origin}/create`);

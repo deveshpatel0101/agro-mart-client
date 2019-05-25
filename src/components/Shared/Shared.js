@@ -22,17 +22,17 @@ class Shared extends React.Component {
       getSharedBlog(id).then((res) => {
         const { error, errorType, errorMessage: error_msg, blog } = res;
         if (error && errorType === 'blogId') {
-          this.setState(() => ({ error: error, fetching: false }));
+          this.setState({ error: error, fetching: false });
           this.props.dispatch(errorMessage(error_msg, error_msg));
           setTimeout(() => {
             this.props.dispatch(clearMessages());
           }, 8000);
         } else {
-          this.setState(() => ({ blog: { ...blog }, fetching: false }));
+          this.setState({ blog: { ...blog }, fetching: false });
         }
       });
     } else {
-      this.setState(() => ({ error: 'no id found in query', fetching: false }));
+      this.setState({ error: 'no id found in query', fetching: false });
     }
   }
   render() {

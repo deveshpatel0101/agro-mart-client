@@ -26,15 +26,15 @@ class BlogCard extends React.Component {
   }
 
   handleChange = () => {
-    this.setState(() => ({ value: true }));
+    this.setState({ value: true });
   };
 
   handleOpen = () => {
-    this.setState(() => ({ open: true }));
+    this.setState({ open: true });
   };
 
   handleClose = () => {
-    this.setState(() => ({ open: false }));
+    this.setState({ open: false });
   };
 
   handleLinkClick = (e) => {

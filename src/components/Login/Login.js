@@ -28,12 +28,12 @@ class Login extends React.Component {
 
   handleEmailChange = (e) => {
     const temp = e.target.value;
-    this.setState(() => ({ email: temp, errorEmail: false }));
+    this.setState({ email: temp, errorEmail: false });
   };
 
   handlePasswordChange = (e) => {
     const temp = e.target.value;
-    this.setState(() => ({ password: temp, errorPassword: false }));
+    this.setState({ password: temp, errorPassword: false });
   };
 
   handleSubmit = (e) => {
@@ -46,9 +46,9 @@ class Login extends React.Component {
       .then((res) => {
         const { error, errorType, errorMessage: error_msg } = res;
         if (error && errorType === 'email') {
-          this.setState(() => ({ errorEmail: error_msg }));
+          this.setState({ errorEmail: error_msg });
         } else if (error && errorType === 'password') {
-          this.setState(() => ({ errorPassword: error_msg }));
+          this.setState({ errorPassword: error_msg });
         } else if (error) {
           this.props.dispatch(
             errorMessage(

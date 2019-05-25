@@ -23,12 +23,12 @@ class RegisterWrapper extends React.Component {
       if (res.error) {
         // invalid token status or error in response of server
         this.props.dispatch(userLogOut());
-        this.setState(() => ({ verifying: false }));
+        this.setState({ verifying: false });
       } else {
         // valid token and user is already logged in
         this.props.dispatch(userLogin());
         this.props.dispatch(addBlogArr(res.blogs));
-        this.setState(() => ({ verifying: false }));
+        this.setState({ verifying: false });
       }
     });
   }

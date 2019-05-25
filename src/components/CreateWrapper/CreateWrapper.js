@@ -24,12 +24,12 @@ class CreateWrapper extends React.Component {
       if (res.error) {
         // if token invalid dispatch userlogout action
         this.props.dispatch(userLogOut());
-        this.setState(() => ({ verifying: false }));
+        this.setState({ verifying: false });
       } else {
         // else dispatch userlogin action
         this.props.dispatch(userLogin());
         this.props.dispatch(addBlogArr(res.blogs));
-        this.setState(() => ({ verifying: false }));
+        this.setState({ verifying: false });
       }
     });
   };
@@ -37,7 +37,7 @@ class CreateWrapper extends React.Component {
   componentWillMount() {
     // if id field exist in url, if so set id in local state
     const id = window.location.search.split('=')[1];
-    if (id) this.setState(() => ({ id }));
+    if (id) this.setState({ id });
     // if id exists and blogs length is not zero get all user blogs from server
     if (id && !this.props.auth.loggedIn) {
       // page was refreshed
@@ -47,7 +47,7 @@ class CreateWrapper extends React.Component {
       if (!this.props.auth.loggedIn) {
         this.getBlogs();
       } else {
-        this.setState(() => ({ verifying: false }));
+        this.setState({ verifying: false });
       }
     }
   }

@@ -32,22 +32,22 @@ class Register extends React.Component {
 
   handleNameChange = (e) => {
     const temp = e.target.value;
-    this.setState(() => ({ username: temp, errorName: false }));
+    this.setState({ username: temp, errorName: false });
   };
 
   handleEmailChange = (e) => {
     const temp = e.target.value;
-    this.setState(() => ({ email: temp, errorEmail: false }));
+    this.setState({ email: temp, errorEmail: false });
   };
 
   handlePasswordChange = (e) => {
     const temp = e.target.value;
-    this.setState(() => ({ password: temp, errorPassword: false }));
+    this.setState({ password: temp, errorPassword: false });
   };
 
   handleConfirmPasswordChange = (e) => {
     const temp = e.target.value;
-    this.setState(() => ({ confirmPassword: temp, errorConfirmPassword: false }));
+    this.setState({ confirmPassword: temp, errorConfirmPassword: false });
   };
 
   handleGeolocationClick = (e) => {
@@ -72,13 +72,13 @@ class Register extends React.Component {
     postSignupData({ username, email, password, confirmPassword, position }).then((res) => {
       const { error, errorType, errorMessage: error_msg } = res;
       if (error && errorType === 'username') {
-        this.setState(() => ({ errorName: error_msg }));
+        this.setState({ errorName: error_msg });
       } else if (error && errorType === 'email') {
-        this.setState(() => ({ errorEmail: error_msg }));
+        this.setState({ errorEmail: error_msg });
       } else if (error && errorType === 'password') {
-        this.setState(() => ({ errorPassword: error_msg }));
+        this.setState({ errorPassword: error_msg });
       } else if (error && errorType === 'confirmPassword') {
-        this.setState(() => ({ errorConfirmPassword: error_msg }));
+        this.setState({ errorConfirmPassword: error_msg });
       } else if (error && errorType === 'position') {
         this.setState({ errorPosition: 'Please enable position.' });
       } else if (!res.error) {
@@ -88,7 +88,7 @@ class Register extends React.Component {
         setTimeout(() => {
           this.props.dispatch(clearMessages());
         }, 8000);
-        this.setState(() => ({ redirect: true }));
+        this.setState({ redirect: true });
       } else {
         this.props.dispatch(
           errorMessage(
@@ -129,7 +129,7 @@ class Register extends React.Component {
           this.props.dispatch(userLogin());
         } else if (res.errorType === 'email') {
           this.props.dispatch(errorMessage('User already exists!', res.errorMessage));
-          this.setState(() => ({ redirect: 'login' }));
+          this.setState({ redirect: 'login' });
           setTimeout(() => {
             this.props.dispatch(clearMessages());
           }, 8000);
