@@ -45,7 +45,7 @@ class LoginWrapper extends React.Component {
         <LinearProgress />
       </Fragment>
     ) : this.props.auth.loggedIn ? (
-      <Redirect to={this.state.id !== '' ? `/create?id=${this.state.id}` : '/dashboard'} />
+      <Redirect to={this.state.id ? `/create?id=${this.state.id}` : '/dashboard'} />
     ) : (
       <Fragment>
         <Header />

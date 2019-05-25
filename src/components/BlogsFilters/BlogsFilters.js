@@ -29,10 +29,6 @@ class BlogsFilter extends React.Component {
     this.props.dispatch(setTextFilter(textField));
   };
 
-  componentWillMount() {
-    console.log();
-  }
-
   render() {
     return (
       <div className='form-filter-container'>

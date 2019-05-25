@@ -59,6 +59,7 @@ class Register extends React.Component {
         });
       });
     } else {
+      alert('Geo-Location needs to be enabled on your device.');
     }
   };
 
@@ -105,7 +106,7 @@ class Register extends React.Component {
 
   responseGoogle = (response) => {
     if (!this.state.position) {
-      this.setState({ errorPosition: true });
+      this.setState({ errorPosition: 'Position is mandatory even if you register with google.' });
       this.props.dispatch(
         errorMessage(
           'We need to know your location in order to show your items to nearby cosumers.',
@@ -129,7 +130,7 @@ class Register extends React.Component {
           this.props.dispatch(userLogin());
         } else if (res.errorType === 'email') {
           this.props.dispatch(errorMessage('User already exists!', res.errorMessage));
-          this.setState({ redirect: 'login' });
+          this.setState({ redirect: true });
           setTimeout(() => {
             this.props.dispatch(clearMessages());
           }, 8000);
@@ -161,10 +162,8 @@ class Register extends React.Component {
       errorConfirmPassword,
       errorPosition,
     } = this.state;
-    if (this.state.redirect === 'login') {
+    if (this.state.redirect) {
       return <Redirect to={'/user/login'} />;
-    } else if (this.state.redirect) {
-      return <Redirect to={'/dashboard'} />;
     }
     return (
       <div className='register-form'>

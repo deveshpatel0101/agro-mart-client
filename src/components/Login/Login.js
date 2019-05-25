@@ -12,7 +12,6 @@ import { addBlogArr } from '../../redux/actions/blogs';
 import { clearMessages, errorMessage } from '../../redux/actions/message';
 import secrets from '../../secret';
 
-// TODO: redirect to login and bring user back to where he was
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -42,33 +41,29 @@ class Login extends React.Component {
     const email = e.target.elements.email.value;
     const password = e.target.elements.password.value;
     // send login data to server
-    postLoginData({ email, password })
-      .then((res) => {
-        const { error, errorType, errorMessage: error_msg } = res;
-        if (error && errorType === 'email') {
-          this.setState({ errorEmail: error_msg });
-        } else if (error && errorType === 'password') {
-          this.setState({ errorPassword: error_msg });
-        } else if (error) {
-          this.props.dispatch(
-            errorMessage(
-              'Oops! Something went wrong. This might be an API error. Report the error here or try refreshing the page.',
-              res.errorMessage,
-            ),
-          );
-          setTimeout(() => {
-            this.props.dispatch(clearMessages());
-          }, 8000);
-        } else {
-          // successful login
-          localStorage.setItem('loginToken', res.jwtToken);
-          this.props.dispatch(addBlogArr(res.blogs));
-          this.props.dispatch(userLogin());
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    postLoginData({ email, password }).then((res) => {
+      const { error, errorType, errorMessage: error_msg } = res;
+      if (error && errorType === 'email') {
+        this.setState({ errorEmail: error_msg });
+      } else if (error && errorType === 'password') {
+        this.setState({ errorPassword: error_msg });
+      } else if (error) {
+        this.props.dispatch(
+          errorMessage(
+            'Oops! Something went wrong. This might be an API error. Report the error here or try refreshing the page.',
+            res.errorMessage,
+          ),
+        );
+        setTimeout(() => {
+          this.props.dispatch(clearMessages());
+        }, 8000);
+      } else {
+        // successful login
+        localStorage.setItem('loginToken', res.jwtToken);
+        this.props.dispatch(addBlogArr(res.blogs));
+        this.props.dispatch(userLogin());
+      }
+    });
   };
 
   responseGoogle = (response) => {
@@ -77,7 +72,6 @@ class Login extends React.Component {
         accessToken: response.accessToken,
       };
       googleAuthLogin(user).then((res) => {
-        console.log(res);
         if (res.errorType === 'email') {
           this.props.dispatch(errorMessage('User does not exists!', res.errorMessage));
           this.setState({ redirect: 'signup' });

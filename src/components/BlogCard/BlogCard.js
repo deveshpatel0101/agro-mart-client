@@ -12,8 +12,6 @@ import { userLogOut } from '../../redux/actions/auth';
 import { removeBlogFromDb } from '../../controllers/removeBlog';
 import { postSharedBlog } from '../../controllers/shared';
 
-// TODO: redirect to login and bring user back to where he was
-// Remove the bug of fontawesome icons not being loaded
 class BlogCard extends React.Component {
   constructor(props) {
     super(props);
@@ -40,7 +38,7 @@ class BlogCard extends React.Component {
   handleLinkClick = (e) => {
     e.target.select();
     document.execCommand('copy');
-    this.props.dispatch(successMessage('Link copied to clipboard.', 'link copied to clipboard.'));
+    this.props.dispatch(successMessage('Link copied to clipboard.', 'Link copied to clipboard.'));
     setTimeout(() => {
       this.props.dispatch(clearMessages());
     }, 8000);
@@ -55,7 +53,6 @@ class BlogCard extends React.Component {
     };
 
     postSharedBlog(shareBlog).then((res) => {
-      console.log(res);
       const { error, errorType, errorMessage: error_msg } = res;
       if (error && errorType === 'token') {
         this.props.dispatch(userLogOut());

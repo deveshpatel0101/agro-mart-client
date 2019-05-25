@@ -12,13 +12,9 @@ class Blogs extends React.Component {
         {/* Only to show table if there is atleast one blog in list */}
         {this.props.blogs.length > 0 ? (
           <div className='items-grid'>
-            {this.props.blogs.map((blog) =>
-              blog.blogId ? (
-                <BlogCard key={blog.blogId} blog={blog} />
-              ) : (
-                <BlogCard key={blog.id} blog={blog} />
-              ),
-            )}
+            {this.props.blogs.map((blog) => (
+              <BlogCard key={blog.blogId} blog={blog} />
+            ))}
           </div>
         ) : null}
       </Fragment>
