@@ -16,7 +16,16 @@ Follow below steps to start local development environment:
 1. Download or clone this repository.
 2. cd into this folder. `cd agro-mart-client`.
 3. Install the required dependencies using `npm install` command.
-4. Once dependencies are install, run `npm start` command to start localhost server. A new tab will automatically open in your default browser if not then the server will be started on [http://localhost:3000](http://localhost:3000).
+4. Until all dependencies gets installed, create a new file `secret.js` under the `src/` directory of the project. Fill it up with you proper credentials. Make sure to use the same `GOOGLE_CLIENT_ID` that you used in your agro-mart-server project otherwise it won't work.
+
+```
+export default {
+  GOOGLE_CLIENT_ID: 'YOUR_GOOGLE_CLIENT_ID_HERE',
+  GOOGLE_MAPS_API: 'YOUR_GOOGLE_MAPS_API_HERE',
+};
+```
+
+5. Once dependencies are install, run `npm start` command to start localhost server. A new tab will automatically open in your default browser if not then the server will be started on [http://localhost:3000](http://localhost:3000).
 
 #### Dependencies
 
