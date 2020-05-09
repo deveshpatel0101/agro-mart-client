@@ -1,7 +1,7 @@
 {
-  "short_name": "Agro Market",
+  "short_name": "Agro Mart",
   "name": "Agriculture Market",
-  "description": "Agriculture Market - An helpful app for both farmers and consumers.",
+  "description": "Agriculture Market - A helpful app for both farmers and consumers.",
   "icons": [
     {
       "src": "/img/favicon-48x48.png",
