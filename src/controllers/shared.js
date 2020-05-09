@@ -1,6 +1,6 @@
 export const postSharedBlog = (sharedBlog) => {
   return fetch(
-    `https://agro-mart-v2.herokuapp.com/public/shared${
+    `https://agro-mart-api.herokuapp.com/public/shared${
       localStorage.getItem('loginToken') === 'undefined' ||
       localStorage.getItem('loginToken') === 'null'
         ? ''
@@ -26,7 +26,7 @@ export const postSharedBlog = (sharedBlog) => {
 };
 
 export const getSharedBlog = (id) => {
-  return fetch(`https://agro-mart-v2.herokuapp.com/public/shared/blog?blogId=${id}`).then((res) => {
+  return fetch(`https://agro-mart-api.herokuapp.com/public/shared/blog?blogId=${id}`).then((res) => {
     return res
       .json()
       .then((result) => {

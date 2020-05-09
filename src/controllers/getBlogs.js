@@ -1,6 +1,6 @@
 export const getBlogsFromDb = () => {
   return fetch(
-    `https://agro-mart-v2.herokuapp.com/user/blogs${
+    `https://agro-mart-api.herokuapp.com/user/blogs${
       localStorage.getItem('loginToken') === 'undefined' ||
       localStorage.getItem('loginToken') === 'null'
         ? ''

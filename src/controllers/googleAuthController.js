@@ -1,5 +1,5 @@
 export const googleAuthRegister = (data) => {
-  return fetch(`https://agro-mart-v2.herokuapp.com/user/auth/google/register`, {
+  return fetch(`https://agro-mart-api.herokuapp.com/user/auth/google/register`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export const googleAuthRegister = (data) => {
 };
 
 export const googleAuthLogin = (data) => {
-  return fetch(`https://agro-mart-v2.herokuapp.com/user/auth/google/login`, {
+  return fetch(`https://agro-mart-api.herokuapp.com/user/auth/google/login`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',

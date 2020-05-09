@@ -1,5 +1,5 @@
 export const postLoginData = (formData) => {
-  return fetch('https://agro-mart-v2.herokuapp.com/user/login', {
+  return fetch('https://agro-mart-api.herokuapp.com/user/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
