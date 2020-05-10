@@ -1,8 +1,0 @@
-.items-grid {
-    width: 98%;
-    margin: 0 auto 80px auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: space-around;
-}

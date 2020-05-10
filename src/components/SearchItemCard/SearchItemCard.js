@@ -5,10 +5,10 @@ class SearchItemCard extends React.Component {
   render() {
     return (
       <div>
-        Title: {this.props.blog.title}
+        Title: {this.props.item.title}
         <br />
-        Description: {this.props.blog.description}<br />
-        Address: {this.props.blog.address}<br /><br />
+        Description: {this.props.item.description}<br />
+        Address: {this.props.item.address}<br /><br />
       </div>
     );
   }

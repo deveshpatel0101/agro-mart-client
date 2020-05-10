@@ -1,15 +1,14 @@
-const authReducerDefaultState = {
-  loggedIn: false,
-  loggedOut: true,
+const userReducerDefaultState = {
+  auth: false,
   signUpMessage: null,
 };
 
-export default (state = authReducerDefaultState, action) => {
+export default (state = userReducerDefaultState, action) => {
   switch (action.type) {
     case 'LOGGED_IN':
-      return { ...state, loggedIn: true, loggedOut: false };
+      return { ...state, auth: true };
     case 'LOGGED_OUT':
-      return { ...state, loggedIn: false, loggedOut: true };
+      return { ...state, auth: false };
     case 'SIGNUP_SUCCESS':
       return { ...state, signUpMessage: 'Singup Successfull! You can now login.' };
     case 'REMOVE_SIGNUP':

@@ -1,6 +1,6 @@
-export const editBlogs = (blogs) => {
+export const editItems = (items) => {
   return fetch(
-    `https://agro-mart-api.herokuapp.com/user/blogs${
+    `https://agro-mart-api.herokuapp.com/user/items${
       localStorage.getItem('loginToken') === 'undefined' ||
       localStorage.getItem('loginToken') === 'null'
         ? ''
@@ -11,7 +11,7 @@ export const editBlogs = (blogs) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(blogs),
+      body: JSON.stringify(items),
     },
   ).then((res) => {
     return res

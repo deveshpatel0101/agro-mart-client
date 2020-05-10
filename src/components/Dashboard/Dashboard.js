@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/Add';
 
-import Filters from '../BlogsFilters/BlogsFilters';
-import Blogs from '../Blogs/Blogs';
+import Filters from '../ItemsFilters/ItemsFilters';
+import Items from '../Items/Items';
 
 class Dashboard extends React.Component {
   render() {
@@ -14,13 +14,13 @@ class Dashboard extends React.Component {
         <div className='container'>
           <Filters />
         </div>
-        <Blogs />
+        <Items />
         <div className='top-button'>
-          <Button variant='fab' mini={true} color='primary' aria-label='Add Item'>
-            <Link to='/create'>
+          <Link to='/create'>
+            <Button variant='contained' size='small' color='primary' aria-label='Add Item'>
               <ExpandMoreIcon />
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
       </div>
     );

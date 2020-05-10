@@ -4,17 +4,17 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { TextField, Button } from '@material-ui/core';
 
-import { errorMessage, clearMessages } from '../../redux/actions/message';
-import { addBlog, editBlog } from '../../redux/actions/blogs';
-import { userLogOut } from '../../redux/actions/auth';
-import { createBlog } from '../../controllers/createBlog';
-import { editBlogs } from '../../controllers/editBlogs';
+import { errorMessage } from '../../redux/actions/message';
+import { addItem, editItem } from '../../redux/actions/items';
+import { userLogOut } from '../../redux/actions/user';
+import { createItem } from '../../controllers/createItem';
+import { editItems } from '../../controllers/editItems';
 
 class Create extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      blogId: null,
+      itemId: null,
       title: '',
       description: '',
       createdAt: null,
@@ -26,7 +26,7 @@ class Create extends React.Component {
 
   handleChange = (e) => {
     // sets title and description value in local state depending upon what is changed - title/desciption
-    // sets modified to true to use it when blog is in edit mode i.e blog is being modified.
+    // sets modified to true to use it when item is in edit mode i.e item is being modified.
     const { id, value } = e.target;
     if (id === 'title') {
       this.setState({ title: value, modified: true });
@@ -37,9 +37,6 @@ class Create extends React.Component {
 
   renderMessage(show_msg, main_msg) {
     this.props.dispatch(errorMessage(show_msg, main_msg));
-    setTimeout(() => {
-      this.props.dispatch(clearMessages());
-    }, 8000);
   }
 
   handleClick = (e) => {
@@ -48,16 +45,16 @@ class Create extends React.Component {
     const description = e.target.elements.description.value;
 
     // check if title and description fields are empty. if so keep submit button disabled.
-    // blog is being modified then send api call to server and then dispatch editBlog action only if server responds with status okay
-    if (this.state.blogId) {
-      // blog is being modified
-      const newBlog = {
+    // item is being modified then send api call to server and then dispatch editItem action only if server responds with status okay
+    if (this.state.itemId) {
+      // item is being modified
+      const newItem = {
         title,
         description,
         lastModified: new Date().getTime(),
       };
       // send call to server with necessary values
-      editBlogs({ blogId: this.state.blogId, values: { ...newBlog } }).then((res) => {
+      editItems({ itemId: this.state.itemId, values: { ...newItem } }).then((res) => {
         // if tokenStatus status in response was invalid dispatch logout action
         const { error, errorType, errorMessage: error_msg } = res;
         if (error && errorType === 'token') {
@@ -68,7 +65,7 @@ class Create extends React.Component {
           );
         } else if (!error) {
           // if response was true i.e request was successfully satisfied
-          this.props.dispatch(editBlog(this.state.blogId, { ...newBlog }));
+          this.props.dispatch(editItem(this.state.itemId, { ...newItem }));
           this.setState({ clicked: true });
         } else if (error) {
           // if error was found in response then send alert to user
@@ -79,19 +76,19 @@ class Create extends React.Component {
         }
       });
     } else {
-      // new blog is being created, under new state
-      const newBlog = {
+      // new item is being created, under new state
+      const newItem = {
         title,
         description,
         createdAt: new Date().getTime(),
         lastModified: new Date().getTime(),
       };
       // send call to server with necessary values
-      createBlog({ ...newBlog }).then((res) => {
+      createItem({ ...newItem }).then((res) => {
         // if response was true i.e request was successfully satisfied
-        const { error, errorType, errorMessage: error_msg, blogId } = res;
+        const { error, errorType, errorMessage: error_msg, itemId } = res;
         if (!error) {
-          this.props.dispatch(addBlog({ ...newBlog, blogId }));
+          this.props.dispatch(addItem({ ...newItem, itemId }));
           // set click value to true if form is correctly updated so as to redirect user to home page
           this.setState({ clicked: true });
         } else if (error && errorType === 'token') {
@@ -112,18 +109,18 @@ class Create extends React.Component {
     }
   };
 
-  componentWillMount() {
+  componentDidMount() {
     // find `id` if it exist in url
-    const blogId = window.location.search.split('=')[1];
-    this.setState({ blogId });
-    if (blogId) {
-      // fetching correctBlog that matches in blogs array
-      let correctBlog = this.props.blogs.find((blog) => blog.blogId === blogId && blog);
-      if (correctBlog) {
-        // if correct blog exist set its values in state along with id
-        this.setState({ ...correctBlog, blogId });
+    const itemId = window.location.search.split('=')[1];
+    this.setState({ itemId });
+    if (itemId) {
+      // fetching correctItem that matches in items array
+      let correctItem = this.props.items.find((item) => item.itemId === itemId && item);
+      if (correctItem) {
+        // if correct item exist set its values in state along with id
+        this.setState({ ...correctItem, itemId });
       } else {
-        this.renderMessage('Blog does not exists!', 'Invalid blog id found in url.');
+        this.renderMessage('Item does not exists!', 'Invalid item id found in url.');
         window.history.replaceState('new url', null, `${window.location.origin}/create`);
       }
     }
@@ -154,7 +151,7 @@ class Create extends React.Component {
                 <TextField
                   id='description'
                   label='Description'
-                  placeholder='Description of your blog goes here.'
+                  placeholder='Description of your item goes here.'
                   multiline={true}
                   fullWidth={true}
                   value={this.state.description}
@@ -164,7 +161,7 @@ class Create extends React.Component {
                 />
               </div>
 
-              <div className='update-blog'>
+              <div className='update-item'>
                 {/* disable the button depending upon the values of title, description and modified */}
                 <Button
                   variant='contained'
@@ -178,7 +175,7 @@ class Create extends React.Component {
                     )
                   }
                 >
-                  {this.state.blogId ? 'Update Item' : 'Add Item'}
+                  {this.state.itemId ? 'Update Item' : 'Add Item'}
                 </Button>
               </div>
             </form>
@@ -191,7 +188,7 @@ class Create extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    blogs: state.blogs,
+    items: state.items,
   };
 };
 

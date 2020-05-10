@@ -1,18 +1,18 @@
 import React, { Fragment } from 'react';
-import './BlogCard.css';
+import './ItemCard.css';
 import { Card, Typography, Button, Modal, Paper, Switch, TextField } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import moment from 'moment';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { sharedBlog, removeBlog } from '../../redux/actions/blogs';
-import { successMessage, clearMessages, errorMessage } from '../../redux/actions/message';
-import { userLogOut } from '../../redux/actions/auth';
-import { removeBlogFromDb } from '../../controllers/removeBlog';
-import { postSharedBlog } from '../../controllers/shared';
+import { sharedItem, removeItem } from '../../redux/actions/items';
+import { successMessage, errorMessage } from '../../redux/actions/message';
+import { userLogOut } from '../../redux/actions/user';
+import { removeItemFromDb } from '../../controllers/removeItem';
+import { postSharedItem } from '../../controllers/shared';
 
-class BlogCard extends React.Component {
+class ItemCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,20 +39,17 @@ class BlogCard extends React.Component {
     e.target.select();
     document.execCommand('copy');
     this.props.dispatch(successMessage('Link copied to clipboard.', 'Link copied to clipboard.'));
-    setTimeout(() => {
-      this.props.dispatch(clearMessages());
-    }, 8000);
   };
 
   handleSharedChange = () => {
-    let shareBlog = {
-      blogId: this.props.blog.blogId,
+    let shareItem = {
+      itemId: this.props.item.itemId,
       values: {
-        shared: !this.props.blog.shared,
+        shared: !this.props.item.shared,
       },
     };
 
-    postSharedBlog(shareBlog).then((res) => {
+    postSharedItem(shareItem).then((res) => {
       const { error, errorType, errorMessage: error_msg } = res;
       if (error && errorType === 'token') {
         this.props.dispatch(userLogOut());
@@ -64,21 +61,15 @@ class BlogCard extends React.Component {
             error_msg,
           ),
         );
-        setTimeout(() => {
-          this.props.dispatch(clearMessages());
-        }, 8000);
       } else {
-        this.props.dispatch(sharedBlog(this.props.blog.blogId));
+        this.props.dispatch(sharedItem(this.props.item.itemId));
         this.props.dispatch(successMessage('Successful!', 'Successfully Updated'));
-        setTimeout(() => {
-          this.props.dispatch(clearMessages());
-        }, 5000);
       }
     });
   };
 
-  handleRemoveBlog = () => {
-    removeBlogFromDb({ blogId: this.props.blog.blogId }).then((res) => {
+  handleRemoveItem = () => {
+    removeItemFromDb({ itemId: this.props.item.itemId }).then((res) => {
       const { error, errorType, errorMessage: error_msg } = res;
       if (error && errorType === 'token') {
         this.props.dispatch(userLogOut());
@@ -89,15 +80,9 @@ class BlogCard extends React.Component {
             error_msg,
           ),
         );
-        setTimeout(() => {
-          this.props.dispatch(clearMessages());
-        }, 8000);
       } else if (!error) {
-        this.props.dispatch(removeBlog({ blogId: this.props.blog.blogId }));
+        this.props.dispatch(removeItem({ itemId: this.props.item.itemId }));
         this.props.dispatch(successMessage('Item deleted successfully!', 'Item deleted.'));
-        setTimeout(() => {
-          this.props.dispatch(clearMessages());
-        }, 8000);
       }
     });
   };
@@ -105,37 +90,37 @@ class BlogCard extends React.Component {
   render() {
     return (
       <Fragment>
-        {/* To redirect user when click event occurs on specific blog item in list */}
+        {/* To redirect user when click event occurs on specific item item in list */}
         {this.state.value ? (
-          <Redirect push to={{ pathname: '/create', search: `?id=${this.props.blog.blogId}` }} />
+          <Redirect push to={{ pathname: '/create', search: `?id=${this.props.item.itemId}` }} />
         ) : (
           <Card className='items-grid-item'>
-            <div className='blog-wrapper'>
-              <p onClick={this.handleChange} className='blog-title'>
-                {this.props.blog.shared ? (
+            <div className='item-wrapper'>
+              <p onClick={this.handleChange} className='item-title'>
+                {this.props.item.shared ? (
                   <i className='fal fa-users' />
                 ) : (
                   <i className='fal fa-user' />
                 )}
-                <span>{this.props.blog.title}</span>
+                <span>{this.props.item.title}</span>
               </p>
-              <p className='blog-description' title={this.props.blog.description}>
-                <b>Description</b>: {this.props.blog.description}
+              <p className='item-description' title={this.props.item.description}>
+                <b>Description</b>: {this.props.item.description}
               </p>
-              {this.props.blog.address && (
-                <p className='blog-address' title={this.props.blog.address}>
-                  <b>Address</b>: {this.props.blog.address}
+              {this.props.item.address && (
+                <p className='item-address' title={this.props.item.address}>
+                  <b>Address</b>: {this.props.item.address}
                 </p>
               )}
-              <p className='blog-datetime'>
+              <p className='item-datetime'>
                 <b>Created</b>:&nbsp;
-                <span>{moment(this.props.blog.createdAt).format('Do MMM YYYY, hh:mm a')}</span>
+                <span>{moment(this.props.item.createdAt).format('Do MMM YYYY, hh:mm a')}</span>
               </p>
-              <p className='blog-datetime'>
+              <p className='item-datetime'>
                 <b>Modified</b>:&nbsp;
-                <span>{moment(this.props.blog.lastModified).format('Do MMM YYYY, hh:mm a')}</span>
+                <span>{moment(this.props.item.lastModified).format('Do MMM YYYY, hh:mm a')}</span>
               </p>
-              <div className='blog-buttons'>
+              <div className='item-buttons'>
                 <div className='modal-open-button'>
                   <Button onClick={this.handleOpen} size='small'>
                     Share
@@ -148,30 +133,30 @@ class BlogCard extends React.Component {
                     className='modal'
                   >
                     <Paper className='modal-content'>
-                      <Typography variant='title' id='modal-title'>
+                      <Typography variant='subtitle1' id='modal-title'>
                         Share?
                       </Typography>
                       <Switch
-                        checked={this.props.blog.shared}
+                        checked={this.props.item.shared}
                         onChange={this.handleSharedChange}
                         color='primary'
                       />
-                      {this.props.blog.shared ? (
+                      {this.props.item.shared ? (
                         <TextField
                           id='name'
-                          value={`${window.location.origin}/public/shared?id=${this.props.blog.blogId}`}
+                          value={`${window.location.origin}/public/shared?id=${this.props.item.itemId}`}
                           onClick={this.handleLinkClick}
                         />
                       ) : null}
-                      <Typography variant='subheading' id='simple-modal-description'>
+                      <Typography variant='subtitle1' id='simple-modal-description'>
                         By making it public you understand that it will be available to everyone.
                       </Typography>
                     </Paper>
                   </Modal>
                 </div>
-                <div className='blog-delete-button'>
-                  <Button onClick={this.handleRemoveBlog} size='small'>
-                    Delete <DeleteIcon className='delete-blog-icon' />
+                <div className='item-delete-button'>
+                  <Button onClick={this.handleRemoveItem} size='small'>
+                    Delete <DeleteIcon className='delete-item-icon' />
                   </Button>
                 </div>
               </div>
@@ -187,4 +172,4 @@ const mapStateToProps = () => {
   return {};
 };
 
-export default connect(mapStateToProps)(BlogCard);
+export default connect(mapStateToProps)(ItemCard);

@@ -7,9 +7,9 @@ import GoogleLogin from 'react-google-login';
 
 import { postLoginData } from '../../controllers/loginController';
 import { googleAuthLogin } from '../../controllers/googleAuthController';
-import { userLogin } from '../../redux/actions/auth';
-import { addBlogArr } from '../../redux/actions/blogs';
-import { clearMessages, errorMessage } from '../../redux/actions/message';
+import { userLogin } from '../../redux/actions/user';
+import { addItemsArr } from '../../redux/actions/items';
+import { errorMessage } from '../../redux/actions/message';
 import secrets from '../../secret';
 
 class Login extends React.Component {
@@ -54,13 +54,10 @@ class Login extends React.Component {
             res.errorMessage,
           ),
         );
-        setTimeout(() => {
-          this.props.dispatch(clearMessages());
-        }, 8000);
       } else {
         // successful login
         localStorage.setItem('loginToken', res.jwtToken);
-        this.props.dispatch(addBlogArr(res.blogs));
+        this.props.dispatch(addItemsArr(res.items));
         this.props.dispatch(userLogin());
       }
     });
@@ -75,12 +72,9 @@ class Login extends React.Component {
         if (res.errorType === 'email') {
           this.props.dispatch(errorMessage('User does not exists!', res.errorMessage));
           this.setState({ redirect: 'signup' });
-          setTimeout(() => {
-            this.props.dispatch(clearMessages());
-          }, 8000);
         } else if (!res.error) {
           localStorage.setItem('loginToken', res.jwtToken);
-          this.props.dispatch(addBlogArr(res.blogs));
+          this.props.dispatch(addItemsArr(res.items));
           this.props.dispatch(userLogin());
         } else {
           this.props.dispatch(
@@ -89,9 +83,6 @@ class Login extends React.Component {
               res.errorMessage,
             ),
           );
-          setTimeout(() => {
-            this.props.dispatch(clearMessages());
-          }, 8000);
         }
       });
     }
@@ -172,7 +163,7 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth,
+    auth: state.user.auth,
     message: state.message,
   };
 };

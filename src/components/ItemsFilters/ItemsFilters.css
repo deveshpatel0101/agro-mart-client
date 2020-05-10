@@ -1,4 +1,4 @@
-.add-blog {
+.add-item {
   display: inline-block;
   margin-left: 10px;
 }
@@ -40,7 +40,7 @@
 }
 
 @media screen and (max-width: 756px) {
-  .add-blog {
+  .add-item {
     margin-top: 10px;
     margin-left: 0px;
   }

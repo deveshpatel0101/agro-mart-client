@@ -1,4 +1,4 @@
-export const searchBlogsFromDb = (values) => {
+export const searchItemsFromDb = (values) => {
   return fetch(`https://agro-mart-api.herokuapp.com/public/shared`, {
     method: 'get',
   }).then((res) => {

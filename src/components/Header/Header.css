@@ -1,10 +1,10 @@
-.my-blog-title {
+.my-item-title {
   text-decoration: none;
   color: white;
   transition: 0.3s;
 }
 
-.my-blog-title:hover {
+.my-item-title:hover {
   color: #b1b1b1;
   transition: 0.3s;
 }

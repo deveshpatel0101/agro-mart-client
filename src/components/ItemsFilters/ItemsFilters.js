@@ -1,17 +1,17 @@
 import React from 'react';
-import './BlogsFilters.css';
+import './ItemsFilters.css';
 import moment from 'moment';
 import { TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 
 import { setTextFilter, setStartDate, setEndDate } from '../../redux/actions/filters';
 
-class BlogsFilter extends React.Component {
+class ItemsFilter extends React.Component {
   handleStartDateChange = (e) => {
     const startDate = e.target.value;
     // converting date string to timestamp
     const startDateTimeStamp = moment(startDate ? startDate : 0).valueOf();
-    // dispatching setStartDate to filter blogs
+    // dispatching setStartDate to filter items
     this.props.dispatch(setStartDate(startDateTimeStamp ? startDateTimeStamp : 0));
   };
 
@@ -19,7 +19,7 @@ class BlogsFilter extends React.Component {
     const endDate = e.target.value;
     // converting date string to timestamp
     const endDateTimeStamp = moment(endDate ? endDate : 0).valueOf();
-    // dispatching setEndDate to filter blogs
+    // dispatching setEndDate to filter items
     this.props.dispatch(setEndDate(endDateTimeStamp ? endDateTimeStamp : 0));
   };
 
@@ -87,4 +87,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(BlogsFilter);
+export default connect(mapStateToProps)(ItemsFilter);

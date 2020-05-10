@@ -1,15 +1,15 @@
 import { createStore, combineReducers } from 'redux';
-import blogsReducer from '../reducers/blogs';
+import itemsReducer from '../reducers/items';
 import filtersReducer from '../reducers/filters';
-import authReducer from '../reducers/auth';
+import userReducer from '../reducers/user';
 import messageReducer from '../reducers/message';
 
 export default () => {
   const store = createStore(
     combineReducers({
-      blogs: blogsReducer,
+      items: itemsReducer,
       filters: filtersReducer,
-      auth: authReducer,
+      user: userReducer,
       message: messageReducer,
     }),
   );

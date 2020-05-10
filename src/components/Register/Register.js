@@ -8,9 +8,9 @@ import { connect } from 'react-redux';
 import { postSignupData } from '../../controllers/signupController';
 import secrets from '../../secret';
 import { googleAuthRegister } from '../../controllers/googleAuthController';
-import { addBlogArr } from '../../redux/actions/blogs';
-import { userLogin } from '../../redux/actions/auth';
-import { errorMessage, clearMessages, successMessage } from '../../redux/actions/message';
+import { addItemsArr } from '../../redux/actions/items';
+import { userLogin } from '../../redux/actions/user';
+import { errorMessage, successMessage } from '../../redux/actions/message';
 
 class Register extends React.Component {
   constructor(props) {
@@ -86,9 +86,6 @@ class Register extends React.Component {
         this.props.dispatch(
           successMessage('User created! You can now login.', 'User created! You can now login.'),
         );
-        setTimeout(() => {
-          this.props.dispatch(clearMessages());
-        }, 8000);
         this.setState({ redirect: true });
       } else {
         this.props.dispatch(
@@ -97,9 +94,6 @@ class Register extends React.Component {
             res.errorMessage,
           ),
         );
-        setTimeout(() => {
-          this.props.dispatch(clearMessages());
-        }, 8000);
       }
     });
   };
@@ -112,9 +106,6 @@ class Register extends React.Component {
           'We need to know your location in order to show your items to nearby cosumers.',
         ),
       );
-      setTimeout(() => {
-        this.props.dispatch(clearMessages());
-      }, 8000);
     } else if (!response.error) {
       let user = {
         username: response.profileObj.name,
@@ -126,14 +117,11 @@ class Register extends React.Component {
       googleAuthRegister(user).then((res) => {
         if (!res.error) {
           localStorage.setItem('loginToken', res.jwtToken);
-          this.props.dispatch(addBlogArr(res.blogs));
+          this.props.dispatch(addItemsArr(res.items));
           this.props.dispatch(userLogin());
         } else if (res.errorType === 'email') {
           this.props.dispatch(errorMessage('User already exists!', res.errorMessage));
           this.setState({ redirect: true });
-          setTimeout(() => {
-            this.props.dispatch(clearMessages());
-          }, 8000);
         } else {
           this.props.dispatch(
             errorMessage(
@@ -141,9 +129,6 @@ class Register extends React.Component {
               res.errorMessage,
             ),
           );
-          setTimeout(() => {
-            this.props.dispatch(clearMessages());
-          }, 8000);
         }
       });
     }
